@@ -1,7 +1,5 @@
-import { CreateOrderOptions } from '../../src/types'
-import {AbstractTradeModule} from '../../src/abstract'
+import { CreateOrderOptions, AbstractTradeModule, GetOrderType } from 'trade-bot-core'
 import {Domain} from "../Domain";
-import {GetOrderType} from "../../src/types/extractors";
 import {ExchangeClient} from "./ExchangeClient";
 import {getFigi, placedLimitOrderToOrder, placedMarketOrderToOrder} from "../utils";
 

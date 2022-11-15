@@ -1,10 +1,12 @@
-import { ExchangeAnalyzer } from '../../../src/modules'
-import { AbstractTradeAlgorithm } from '../../../src/abstract'
+import { 
+  ExchangeAnalyzer, 
+  AbstractTradeAlgorithm,
+  GetSecurityType, CommonDomain
+ } from 'trade-bot-core'
 import {ExchangeClient} from '../../exchange-client'
 import {AggressiveTraderInput, AggressiveTraderState, AggressiveTraderStopData} from './types'
 import {Job, scheduleJob} from 'node-schedule'
-import {GetSecurityType} from "../../../src/types/extractors";
-import {CommonDomain} from "../../../src/types";
+import {CurrencyPosition} from "@tinkoff/invest-openapi-js-sdk";
 
 export class AggressiveTradingAlgorithm
     extends AbstractTradeAlgorithm<ExchangeClient, AggressiveTraderInput, AggressiveTraderState, AggressiveTraderStopData> {
@@ -58,7 +60,7 @@ export class AggressiveTradingAlgorithm
         state.last_diff_currency = oldPrice - lastPrice
         if (Math.abs(priceDiffPercents) > 0.005){
           if (priceDiffPercents > 0) {
-            const {currencies} = await analyzer.tradebot.exchangeClient.api.portfolioCurrencies()
+            const {currencies}: {currencies: CurrencyPosition[]} = await analyzer.tradebot.exchangeClient.api.portfolioCurrencies()
             const currency = currencies.find(c => c.currency === security.currency_ticker)
             if (!currency) return
             if (Math.ceil(lastPrice) * 3 < currency.balance) {

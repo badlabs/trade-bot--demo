@@ -1,4 +1,4 @@
-import {DomainTemplate} from "../src/types";
+import {DomainTemplate} from "trade-bot-core";
 import {Currency, CurrencyPosition, MarketInstrument, Operation, Portfolio} from "@tinkoff/invest-openapi-js-sdk";
 import {Order as ImportedOrder} from "@tinkoff/invest-openapi-js-sdk";
 

@@ -32,6 +32,7 @@
     "noUnusedParameters": false // Report errors on unused parameters in functions
   },
   "include": ["./**/*.ts"],
+  "files": ["./src"],
   "exclude": [
     "node_modules/**/*"
   ]

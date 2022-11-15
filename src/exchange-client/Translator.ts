@@ -1,13 +1,11 @@
-import {OperationType, OrderStatus, CommonDomain} from '../../src/types'
-import {AbstractTranslator} from '../../src/abstract'
-import {ExchangeClient} from './ExchangeClient'
-import {
+import {OperationType, OrderStatus, CommonDomain, 
+    AbstractTranslator,
     GetCurrencyBalanceType,
     GetCurrencyType,
     GetOperationType, GetOrderType,
     GetPortfolioType,
-    GetSecurityType
-} from "../../src/types/extractors";
+    GetSecurityType} from 'trade-bot-core'
+import {ExchangeClient} from './ExchangeClient'
 import {Domain} from "../Domain";
 
 export class Translator extends AbstractTranslator<ExchangeClient> {

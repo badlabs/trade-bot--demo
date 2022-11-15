@@ -2,10 +2,10 @@
   "name": "trade-bot--tinkoff",
   "version": "0.6.1",
   "description": "",
-  "main": "server.ts",
+  "main": "src/index.ts",
   "scripts": {
-    "start": "ts-node server.ts",
-    "dev": "nodemon server.ts",
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon src/index.ts",
     "test": "ts-node ./test/index.ts",
     "db-update": "npx prisma migrate dev --name ''",
     "db-browse": "npx prisma studio"
@@ -23,11 +23,14 @@
   ],
   "license": "Apache-2.0",
   "devDependencies": {
+    "@types/node-schedule": "^2.1.0",
     "nodemon": "^2.0.15",
     "ts-node": "^10.4.0",
     "tslib": "^2.3.1",
     "typescript": "^4.5.4"
   },
   "dependencies": {
+    "@tinkoff/invest-openapi-js-sdk": "^1.5.0",
+    "node-schedule": "^2.1.0"
   }
 }

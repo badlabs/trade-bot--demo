@@ -1,7 +1,6 @@
 import { ExchangeClient } from './ExchangeClient'
-import {AbstractInfoModule} from '../../src/abstract'
+import {AbstractInfoModule, GetCurrencyType, GetSecurityType} from 'trade-bot-core'
 import {Domain} from "../Domain";
-import {GetCurrencyType, GetSecurityType} from "../../src/types/extractors";
 
 const securitiesCache = new Map<string, GetSecurityType<ExchangeClient>>()
 

@@ -1,8 +1,8 @@
-import {OrderDetails} from 'src/utils'
+import {CreateOrderOptions} from 'trade-bot-core'
 import {Job} from 'node-schedule'
 
 export type SlicingInput = {
-    order: OrderDetails,
+    order: CreateOrderOptions,
     parts: number,
     minutes: number
 }

@@ -1,7 +1,7 @@
-import { ExchangeAnalyzer } from '../../../src/modules'
-import { AbstractTradeAlgorithm } from '../../../src/abstract'
-import { addSecondsToDate } from '../../../src/utils'
-import { CreateOrderOptions } from '../../../src/types'
+import { 
+  ExchangeAnalyzer, 
+  AbstractTradeAlgorithm, 
+  addSecondsToDate, CreateOrderOptions } from 'trade-bot-core'
 import {ExchangeClient} from '../../exchange-client'
 import {HammerInput, HammerState, HammerStopData} from './types'
 

@@ -1,6 +1,5 @@
-import { ExchangeAnalyzer } from '../../../src/modules'
-import { AbstractTradeAlgorithm } from '../../../src/abstract'
-import {addMinutesToDate, addSecondsToDate} from '../../../src/utils'
+import { ExchangeAnalyzer, AbstractTradeAlgorithm, 
+  addMinutesToDate, addSecondsToDate } from 'trade-bot-core'
 import {ExchangeClient} from '../../exchange-client'
 import {SlicingInput, SlicingState, SlicingStopData} from './types'
 

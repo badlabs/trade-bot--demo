@@ -1,6 +1,5 @@
-import {AbstractTradeAlgorithm} from '../../src/abstract'
+import {AbstractTradeAlgorithm, ExchangeAnalyzer} from 'trade-bot-core'
 import {SlicingAlgorithm} from './slicing/logic'
-import {ExchangeAnalyzer} from '../../src/modules'
 import {HammerAlgorithm} from './hammer/logic'
 import {AggressiveTradingAlgorithm} from './aggressive-trading/logic'
 import {ExchangeClient} from '../exchange-client'

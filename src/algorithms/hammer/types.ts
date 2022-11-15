@@ -1,8 +1,8 @@
-import {OrderDetails} from 'src/utils'
+import {CreateOrderOptions} from 'trade-bot-core'
 import {Job} from 'node-schedule'
 
 export type HammerInput = {
-    order: OrderDetails,
+    order: CreateOrderOptions,
     date: Date,
     seconds_before: number
 }
