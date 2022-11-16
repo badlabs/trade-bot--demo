@@ -1,6 +1,6 @@
 import {TradeBot, wait} from "trade-bot-core";
-import {ExchangeClient} from "../exchange-client";
-import {initAlgorithms} from "../algorithms";
+import {ExchangeClient} from "../src/exchange-client";
+import {initAlgorithms} from "../src/algorithms";
 
 (async () => {
 
