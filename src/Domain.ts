@@ -1,5 +1,10 @@
 import {DomainTemplate} from "trade-bot-core";
-import {Currency, CurrencyPosition, MarketInstrument, Operation, Portfolio} from "@tinkoff/invest-openapi-js-sdk";
+import {
+    Currency,
+    CurrencyPosition,
+    MarketInstrument,
+    PortfolioPosition
+} from "@tinkoff/invest-openapi-js-sdk";
 import {Order as ImportedOrder} from "@tinkoff/invest-openapi-js-sdk";
 
 type Order = Omit<ImportedOrder, 'operation'> &
@@ -7,7 +12,4 @@ type Order = Omit<ImportedOrder, 'operation'> &
             'MarketBuy' | 'MarketSell' |
             'BuyOrCancel' | 'SellOrCancel' }
 
-export type Domain = DomainTemplate<
-    Currency, CurrencyPosition,
-    MarketInstrument, Order,
-    Portfolio, Operation>
+export type Domain = DomainTemplate<Currency, CurrencyPosition, MarketInstrument, PortfolioPosition, Order>

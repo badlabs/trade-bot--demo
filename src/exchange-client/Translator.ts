@@ -2,8 +2,9 @@ import {OperationType, OrderStatus, CommonDomain,
     AbstractTranslator,
     GetCurrencyBalanceType,
     GetCurrencyType,
-    GetOperationType, GetOrderType,
-    GetPortfolioType,
+    GetOrderType,
+    GetSecurityBalanceType,
+    Order,
     GetSecurityType} from 'trade-bot-core'
 import {ExchangeClient} from './ExchangeClient'
 import {Domain} from "../Domain";
@@ -11,85 +12,62 @@ import {Domain} from "../Domain";
 export class Translator extends AbstractTranslator<ExchangeClient> {
 
     async currency(currency: GetCurrencyType<Domain>): Promise<GetCurrencyType<CommonDomain>> {
-        return { name: currency, ticker: currency }
+        return {
+            name: currency,
+            ticker: currency,
+            exchangeTicker: currency
+        }
     }
 
     async currencyBalance(currency: GetCurrencyBalanceType<Domain>): Promise<GetCurrencyBalanceType<CommonDomain>> {
-        return { currency_ticker: currency.currency, balance: currency.balance }
-    }
-
-    async portfolio(portfolio: GetPortfolioType<Domain>): Promise<GetPortfolioType<CommonDomain>[]> {
-        return portfolio.positions
-            .map(position => {
-                return {
-                    security_ticker: position.ticker || 'undefined',
-                    amount: position.balance
-                }
-            })
+        return {
+            type: 'currency',
+            currencyTicker: currency.currency,
+            amount: currency.balance }
     }
 
     async security(security: GetSecurityType<Domain>): Promise<GetSecurityType<CommonDomain>> {
         if (!security.currency) throw new Error(`Security with ticker "${security.ticker}" have no currency`)
         return {
-            currency_ticker: security.currency,
+            currencyTicker: security.currency,
             name: security.name,
             price: await this.exchangeClient.infoModule.getSecurityLastPrice(security.ticker),
             ticker: security.ticker
         }
     }
 
-    async operation(operation: GetOperationType<Domain>): Promise<GetOperationType<CommonDomain>> {
-        const security = operation?.figi ?
-            await this.exchangeClient.infoModule.getSecurityByExchangeId(operation?.figi) :
-            null
+    async securityBalance(security: GetSecurityBalanceType<Domain>): Promise<GetSecurityBalanceType<CommonDomain>> {
         return {
-            security_ticker: security?.ticker || null,
-            amount: operation?.quantityExecuted || null,
-            amount_requested: operation?.quantity || null,
-            created_at: new Date(operation.date),
-            exchange_id: operation.id,
-            operation_type: operation.operationType === "Buy" ? 'limit_buy' :
-                operation.operationType === "Sell" ? 'limit_sell' : 'undefined',
-            price: operation?.price || 0,
-            status: operation.status,
-            updated_at: new Date(),
+            type: 'security',
+            amount: security.balance,
+            securityTicker: security.ticker ?? 'undefined'
         }
-    }
-
-    async operations(operations: GetOperationType<Domain>[]): Promise<GetOperationType<CommonDomain>[]> {
-        const securityIds = Array.from(new Set(operations.map(op => op.figi)))
-        await Promise.all(securityIds.map(async (id) => {
-            if (id)
-                await this.exchangeClient.infoModule.getSecurityByExchangeId(id)
-        }))
-        return await Promise.all(operations.map(op => this.operation(op)))
     }
 
     async order(order: GetOrderType<Domain>): Promise<GetOrderType<CommonDomain>> {
         const security = await this.exchangeClient.infoModule.getSecurityByExchangeId(order.figi)
         return {
-            operation_type: this.orderOperation(order),
-            run_id: null,
-            status_first: this.orderStatus(order),
-            exchange_id: order.orderId,
-            created_at: new Date(),
-            amount: order.requestedLots,
+            operation: this.orderOperation(order),
+            algorithmRunId: undefined,
+            status: this.orderStatus(order),
+            exchangeId: order.orderId,
+            lots: order.requestedLots,
             price: order.price,
-            security_ticker: security?.ticker || 'undefined'
+            securityTicker: security?.ticker || 'undefined'
         }
     }
 
     orderStatus(order: GetOrderType<Domain>): OrderStatus {
         switch (order.status) {
-            case "New": return 'new'
+            case "New": return 'placed'
             case "Cancelled": return 'cancelled'
-            case "Fill": return 'fill'
-            case "PartiallyFill": return "partially_fill"
-            case "Replaced": return 'replaced'
+            case "Fill": return 'units_redeemed'
+            case "PartiallyFill": return "units_redeemed"
+            case "Replaced": return 'undefined'
             case "Rejected": return 'rejected'
-            case "PendingNew": return 'pending_new'
-            case "PendingReplace": return 'pending_replace'
-            case 'PendingCancel': return 'pending_cancel'
+            case "PendingNew": return 'to_be_processed'
+            case "PendingReplace": return 'undefined'
+            case 'PendingCancel': return 'cancelled'
             default: return 'undefined'
         }
     }

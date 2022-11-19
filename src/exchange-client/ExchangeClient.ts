@@ -32,7 +32,8 @@ export class ExchangeClient extends AbstractExchangeClient<Domain, OpenAPI>{
 
   async getPortfolio() {
     const { api } = this
-    return await api.portfolio()
+    const result = await api.portfolio()
+    return result.positions
   }
 
   async getCurrenciesBalance() {

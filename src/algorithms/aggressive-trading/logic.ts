@@ -61,7 +61,7 @@ export class AggressiveTradingAlgorithm
         if (Math.abs(priceDiffPercents) > 0.005){
           if (priceDiffPercents > 0) {
             const {currencies}: {currencies: CurrencyPosition[]} = await analyzer.tradebot.exchangeClient.api.portfolioCurrencies()
-            const currency = currencies.find(c => c.currency === security.currency_ticker)
+            const currency = currencies.find(c => c.currency === security.currencyTicker)
             if (!currency) return
             if (Math.ceil(lastPrice) * 3 < currency.balance) {
               await trader.sendOrder({
@@ -74,7 +74,8 @@ export class AggressiveTradingAlgorithm
             }
           }
           else {
-            const portfolioPosition = (await analyzer.getPortfolio()).find(p => p.security_ticker === securityTicker)
+            const portfolioPosition = (await analyzer.getPortfolio())
+                .find(p => p.type === 'security' && p.securityTicker === securityTicker)
             if (!portfolioPosition) return
             await trader.sendOrder({
               ticker: securityTicker,
