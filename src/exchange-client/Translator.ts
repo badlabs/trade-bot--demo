@@ -4,7 +4,6 @@ import {OperationType, OrderStatus, CommonDomain,
     GetCurrencyType,
     GetOrderType,
     GetSecurityBalanceType,
-    Order,
     GetSecurityType} from '@badlabs/tradebot-core'
 import {ExchangeClient} from './ExchangeClient'
 import {Domain} from "../Domain";
