@@ -30,6 +30,7 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
+    "@badlabs/tradebot-core": "^0.1.1",
     "@tinkoff/invest-openapi-js-sdk": "^1.5.0",
     "node-schedule": "^2.1.0"
   }
