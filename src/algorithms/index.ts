@@ -1,12 +1,10 @@
-import {
-    AbstractTradeAlgorithm
-} from "lib/modules/TradeBot";
-import {SlicingAlgorithm} from "./SlicingAlgorithm";
-import {ExchangeAnalyzer} from "lib/modules/TradeBot";
-import {HammerAlgorithm} from "./HammerAlgorithm";
-import {AggressiveTradingAlgorithm} from "./AggressiveTradingAlgorithm";
+import {AbstractTradeAlgorithm, ExchangeAnalyzer} from '@badlabs/tradebot-core'
+import {SlicingAlgorithm} from './slicing/logic'
+import {HammerAlgorithm} from './hammer/logic'
+import {AggressiveTradingAlgorithm} from './aggressive-trading/logic'
+import {ExchangeClient} from '../exchange-client'
 
-export function initAlgorithms(analyzer: ExchangeAnalyzer): AbstractTradeAlgorithm<any, any, any>[] {
+export function initAlgorithms(analyzer: ExchangeAnalyzer<ExchangeClient>): AbstractTradeAlgorithm<ExchangeClient>[] {
     return [
         new SlicingAlgorithm(analyzer),
         new HammerAlgorithm(analyzer),

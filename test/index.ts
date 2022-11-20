@@ -1,14 +1,19 @@
-import {TradeBot} from "../lib/TradeBot";
-import { OperationType, awaitTime } from "../lib/utils";
+import {runTradeBot, wait} from "@badlabs/tradebot-core";
+import {ExchangeClient} from "../src/exchange-client";
+import {initAlgorithms} from "../src/algorithms";
 
 (async () => {
 
-  const tradeBot = new TradeBot()
+  const tradeBot = runTradeBot({
+    exchangeClient: new ExchangeClient(process.env.TINKOFF_SANDBOX_API_KEY || ''),
+    botToken: process.env.BOT_TOKEN || '',
+    initAlgorithmsCallback: initAlgorithms
+  })
 
   console.info(`${new Date()} Waiting initialization...`)
 
   while (!tradeBot.exchangeClient.isAccountInitialized){
-    await awaitTime(10)
+    await wait(10)
   }
   await tradeBot.analyzer.updateCurrencies()
   console.info(`${new Date()} Starting tests...`)
