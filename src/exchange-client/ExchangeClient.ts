@@ -40,24 +40,4 @@ export class ExchangeClient extends AbstractExchangeClient<Domain, OpenAPI>{
     const { api } = this
     return (await api.portfolioCurrencies()).currencies
   }
-
-  async getOperationsAll(from: Date = new Date(0), to: Date = new Date()) {
-    const { api } = this
-    const operations = await api.operations({
-      from: from.toISOString(),
-      to: to.toISOString()
-    })
-    return operations.operations
-  }
-
-  async getOperationsBySecurity(ticker: string, from: Date = new Date(0), to: Date = new Date()) {
-    const { api, infoModule } = this
-    const security = await infoModule.getSecurity(ticker)
-    const operations = await api.operations({
-      from: from.toISOString(),
-      to: to.toISOString(),
-      figi: security?.figi
-    })
-    return operations.operations
-  }
 }
