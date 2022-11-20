@@ -1,4 +1,4 @@
-import {runTradeBot} from "trade-bot-core";
+import {runTradeBot} from "@badlabs/tradebot-core";
 import {ExchangeClient} from "./exchange-client";
 import {initAlgorithms} from "./algorithms";
 

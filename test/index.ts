@@ -1,10 +1,10 @@
-import {TradeBot, wait} from "trade-bot-core";
+import {runTradeBot, wait} from "@badlabs/tradebot-core";
 import {ExchangeClient} from "../src/exchange-client";
 import {initAlgorithms} from "../src/algorithms";
 
 (async () => {
 
-  const tradeBot = new TradeBot({
+  const tradeBot = runTradeBot({
     exchangeClient: new ExchangeClient(process.env.TINKOFF_SANDBOX_API_KEY || ''),
     botToken: process.env.BOT_TOKEN || '',
     initAlgorithmsCallback: initAlgorithms

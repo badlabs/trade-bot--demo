@@ -1,5 +1,5 @@
 import OpenAPI from '@tinkoff/invest-openapi-js-sdk'
-import {AbstractExchangeClient} from 'trade-bot-core'
+import {AbstractExchangeClient} from '@badlabs/tradebot-core'
 import { TradeModule } from './TradeModule'
 import { InfoModule } from './InfoModule'
 import {Translator} from "./Translator"

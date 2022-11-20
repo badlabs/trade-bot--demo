@@ -1,4 +1,4 @@
-import {AbstractTradeAlgorithm, ExchangeAnalyzer} from 'trade-bot-core'
+import {AbstractTradeAlgorithm, ExchangeAnalyzer} from '@badlabs/tradebot-core'
 import {SlicingAlgorithm} from './slicing/logic'
 import {HammerAlgorithm} from './hammer/logic'
 import {AggressiveTradingAlgorithm} from './aggressive-trading/logic'

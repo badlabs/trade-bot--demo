@@ -1,5 +1,5 @@
 import {PlacedMarketOrder} from "@tinkoff/invest-openapi-js-sdk";
-import {GetOrderType} from "trade-bot-core";
+import {GetOrderType} from "@badlabs/tradebot-core";
 import {Domain} from "../Domain";
 import {ExchangeClient} from "../exchange-client";
 

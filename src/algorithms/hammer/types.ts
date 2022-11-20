@@ -1,4 +1,4 @@
-import {CreateOrderOptions} from 'trade-bot-core'
+import {CreateOrderOptions} from '@badlabs/tradebot-core'
 import {Job} from 'node-schedule'
 
 export type HammerInput = {

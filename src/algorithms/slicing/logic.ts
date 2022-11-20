@@ -1,5 +1,5 @@
 import { ExchangeAnalyzer, AbstractTradeAlgorithm, 
-  addMinutesToDate, addSecondsToDate } from 'trade-bot-core'
+  addMinutesToDate, addSecondsToDate } from '@badlabs/tradebot-core'
 import {ExchangeClient} from '../../exchange-client'
 import {SlicingInput, SlicingState, SlicingStopData} from './types'
 
